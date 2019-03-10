@@ -1,0 +1,80 @@
+body {
+    min-height: 100vh; 
+    background: #eaecef;
+}
+
+.buttons a {
+    color: #30363f;
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.profile-design{
+    color: black;
+    background-color:white;
+    padding: 10px;
+    animation: 2s profDesign forwards;
+    margin: auto auto 0.5em auto;
+}
+
+.special-container {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+header input {
+    margin-bottom: 0.5em;
+}
+
+@keyframes profDesign {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.selection-design{
+    border-radius: 25px;
+}
+  
+  .button a{
+    font-size: 1em;
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+  }
+
+  .button {
+      display: flex;
+      justify-content: space-around;
+  }
+
+  nav a {
+      color: black;
+  }
+
+  nav > a:first-child {
+      color: #4286f4;
+  }
+
+  #manage {
+      display: flex;
+      width: 50%;
+      justify-content: flex-start;
+  }
+
+  #manage a.active {
+    border-bottom: 3px solid red;
+  }
+  

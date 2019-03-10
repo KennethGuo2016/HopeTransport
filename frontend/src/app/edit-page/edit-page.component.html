@@ -1,0 +1,52 @@
+<div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a routerLink="/managing-people">Manage people</a>
+    </li>
+    <li class="breadcrumb-item active">Edit profile</li>
+  </ol>
+</div>
+
+<div class="content-align-default content-display" align="center">
+  <form [formGroup]=editForm (ngSubmit)="onSubmit()">
+    <Strong>Edit {{member['name']}}</Strong>
+    <br>
+    <br>
+    <label>
+      Suburb
+      <div *ngIf="suburbs.length ==0 && dirty" class="loader"></div>
+    </label>
+    <br>
+    <input list="matchPostcode" formControlName="suburb" (keyup)="searchPostcode()"
+     class="txt col-md-4" type="text" #suburbInput value="{{member['suburb']}}">
+    <br>
+    <div *ngIf="suburbs.length != 0" class="col-md-4 choosing_surburb">
+      <ul class="remove_bullet">
+        <li *ngFor="let sub of suburbs">
+          <button type="button" class="btn btn-link" (click)="selectSuburb(sub)">{{sub}}</button>
+        </li>
+      </ul>
+    </div>
+    <div class="alert alert-warning col-md-4" role="alert" *ngIf="!editForm.controls['suburb'].valid && editForm.controls['suburb'].touched">
+     Please enter a surburb name and <br> select its full name from the drop-down list
+    </div>
+
+    <br>
+    <label>
+      Seats
+    </label>
+    <br>
+    <input #seats (keyup)='onKey()' class="col-md-4" formControlName="seats" type="number" value="{{member['seats']}}">
+    <br>
+    <div class="alert alert-warning col-md-4" role="alert" *ngIf="!editForm.controls['seats'].valid">Please enter a number greater than 0</div>
+    <p class="note" *ngIf="member['seats'] == 0">A passenger becomes a driver automatically
+      <br> if the number of seats is set to be greater than 0</p>
+    <p class="note" *ngIf="member['seats'] > 0">Set to 0 if the dirver is not driving today</p>
+    <br>
+    <br>
+    <button class="btn btn-primary custome-button col-md-4" [disabled]="!editForm.valid">Update</button>
+    <br>
+
+  </form>
+
+</div>

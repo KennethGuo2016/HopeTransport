@@ -1,0 +1,21 @@
+.suburb_outline{
+    border: 3px solid red;
+}
+
+.remove_bullet{
+    list-style-type: none;
+    -webkit-padding-start: 0;
+}
+
+.choosing_surburb{
+    border:2px solid #ccc; 
+    width:100%; 
+    height: 150px; 
+    overflow-y: scroll;
+    text-align: left;
+    -webkit-padding-start: 0;
+}
+
+.note {
+    color:#535e70;
+}

@@ -1,0 +1,67 @@
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container">
+      <div id="manage">
+        <a class="nav-link active" routerLink="/managing-people">People</a>
+        <a class="nav-link" routerLink="/managing-transport">Transport</a>
+      </div>
+      <div>
+        <a class="nav-link" (click)="logout()" routerLink="/home">
+          <i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="profile-design" [formGroup]="managingForm">
+    <div class="special-container">
+      <input #filterInput type="text" formControlName="name" 
+      class="col-md-4 selection-design" (keyup)="onName()" 
+      placeholder="Search passenger's/driver's name ...">
+      <span class="button">
+        <a routerLink="/checklist">Check List <i class="fas fa-tasks"></i>
+        </a>
+        <a (click)="refresh()">Refresh <i class="fas fa-sync-alt"></i></a>
+      </span>
+    </div>
+  </header>
+
+  <div class="container">
+    <p *ngIf="!loggedIn">
+      Please
+      <a routerLink="/home">login</a> first
+    </p>
+    <p *ngIf="membersUnticked.length == 0 && ticked">You have selected all members</p>
+    <p *ngIf="loggedIn && members.length == 0 && !ticked">Please ask your lifegroup members to <a routerLink="/signup">sign
+        up</a></p>
+  </div>
+
+
+  <div *ngFor="let member of membersUnticked">
+    <div class="profile-design">
+      <div class="special-container">
+        <div *ngIf="member.seats > 0">
+          Driver: {{member.name}}
+          <br> Suburb: {{member.suburb}}
+          <br> Seats: {{member.seats}}
+        </div>
+        <div *ngIf="member.seats == 0">
+          Passenger: {{member.name}}
+          <br> Suburb: {{member.suburb}}
+        </div>
+      </div>
+      <hr>
+
+      <div class="buttons">
+        <a (click)="mark(member)">
+          <i class="fas fa-car"></i> Add
+        </a>
+        <a routerLink="/edit-page" (click)="editPerson(member)">
+          <i class="fa fa-edit"></i> Edit
+        </a>
+        <a (click)="delPerson(member)">
+          <i class="fa fa-trash"></i> Delete
+        </a>
+      </div>
+    </div>
+  </div>
+</body>

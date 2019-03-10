@@ -1,0 +1,46 @@
+<div class="page">
+<div class="container-fluid content-display" align="center">
+  <div align="right">
+    <a routerLink="/home" class="btn btn-link nav-item">Login</a>
+  </div>
+  <h3>Lifegroup Signup</h3>
+  <div *ngIf="loading" class="loader"></div>
+  <div>
+    <form [formGroup]="adminForm" (ngSubmit)="onSubmit()">
+      <br>
+      <label>Lifegroup</label>
+      <br>
+      <input formControlName="lifegroup" type="text" class="col-md-4" placeholder="Your lifegroup" #lg>
+      <br>
+      <div class="alert alert-warning col-md-4" role="alert" *ngIf="!adminForm.controls['lifegroup'].valid && adminForm.controls['lifegroup'].touched"> Please key in your lifegroup unit</div>
+      <br>
+      <label>Email</label><br>
+      <input formControlName="email" type="email" class="col-md-4" placeholder="uq8lifegroup@gmail.com" #email><br>
+      <div class="alert alert-warning col-md-4" role="alert" *ngIf="!adminForm.controls['email'].valid && adminForm.controls['email'].touched"> Please enter the email address</div>
+      <br>
+      <label>Password</label>
+      <br>
+      <input formControlName="password" type="password" class="col-md-4" placeholder="Password" #password>
+      <br>
+      <div class="alert alert-warning col-md-4" role="alert" *ngIf="!adminForm.controls['password'].valid && adminForm.controls['password'].touched"> Please enter the password</div>
+      <br>
+      <label>Confirm Password</label>
+      <br>
+      <input formControlName="confirm_password" type="password" class="col-md-4" placeholder="Confirm password" #confirm_password>
+      <br>
+      <span class="alert alert-warning col-md-4" role="alert" *ngIf="!adminForm.controls['confirm_password'].valid && adminForm.controls['confirm_password'].touched"> Please enter the password again</span><br>
+      <span class="alert alert-warning col-md-4" role="alert"  *ngIf="status == 400">Passwords do not match</span>
+      <span class="alert alert-warning col-md-4" role="alert"  *ngIf="status == 422">Lifegroup already exists or the email has already been used</span>
+      <span class="alert alert-warning col-md-4" role="alert" *ngIf="status==0">The backend server is down. Please contact the developer</span>
+      <span class="alert alert-warning col-md-4" role="alert" *ngIf="status!=null&&status!=0&&status!=400&&status!=422">{{status}} error. Please contact the developer</span>
+      <br>
+      
+      <br>
+      <br>
+      <button type="submit" class="btn btn-primary col-md-4">
+        <i class="fa fa-sign-in"></i>Sign up</button>
+      <br>
+      <br>
+    </form>
+</div>
+  </div>

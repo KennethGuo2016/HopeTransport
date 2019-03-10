@@ -1,0 +1,78 @@
+<div class="container-fluid content-align-default" align="center">
+  <div align="right">
+    <a routerLink="/home" class="btn btn-link nav-item">Admin login</a>
+  </div>
+
+  <div class="content-display">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      
+        <label>
+          <strong>Lifegroup Unit:</strong>
+        </label>
+        <br>
+        <select class="txt col-md-6" #lg formControlName="lifegroup">
+          <option selected disabled value="default">--please select your lifegroup--</option>
+          <option *ngFor="let unit of units" value={{unit}}>{{unit}}</option>
+        </select>
+        <div class="alert alert-warning col-md-6" role="alert" *ngIf="signupForm.controls['lifegroup'].touched && !signupForm.controls['lifegroup'].valid">Please select your lifegroup</div>
+        <br>
+        <br>
+
+        <label>
+          <strong>First Name</strong>
+        </label>
+        <br>
+        <input class="txt col-md-6" formControlName="firstname" type="text" #firstName>
+        <br>
+        <div class="alert alert-warning col-md-6" role="alert" *ngIf="signupForm.controls['firstname'].touched && !signupForm.controls['firstname'].valid">Please key in your first name</div>
+        <br>
+        <label>
+          <strong>Last Name</strong>
+        </label>
+        <br>
+        <input class="txt col-md-6" formControlName="lastname" type="text" #lastName>
+        <br>
+        <div class="alert alert-warning col-md-6" role="alert" *ngIf="signupForm.controls['lastname'].touched && !signupForm.controls['lastname'].valid">Please key in your last name</div>
+        <br>
+        <label>
+          <strong>Suburb</strong>
+          <div *ngIf="suburbs.length ==0 && dirty" class="loader"></div>
+        </label>
+        <br>
+        <input (keyup)="searchPostcode()" formControlName="suburb" class="txt col-md-6" type="text" #suburbInput>
+        <div *ngIf="suburbs.length != 0" class="col-md-6 choosing_surburb">
+          <ul class="remove_bullet">
+            <li *ngFor="let sub of suburbs">
+              <button type="button" class="btn btn-link" (click)="selectSuburb(sub)">{{sub}}</button>
+            </li>
+          </ul>
+        </div>
+        <div class="alert alert-warning col-md-6" role="alert" *ngIf="signupForm.controls['suburb'].touched && !signupForm.controls['suburb'].valid">Please select a full suburb name from the drop-down list</div>
+        <br>
+        <br>
+        <label> Are you a driver?</label>
+        <br>
+
+        <label>Yes
+          <input #isDriver (click)="checkDriver()" type="radio" name="driver">
+        </label>
+        <label>No
+          <input #isNotDriver (click)="checkDriver()" type="radio" name="driver" checked>
+        </label>
+
+        <br>
+        <div *ngIf="driver">
+          <strong>Number of seats: </strong>
+          <br>
+          <input class="col-md-6" type="number" formControlName="numberOfSeats" #seatsInput>
+          <div class="alert alert-warning col-md-6" role="alert" *ngIf="signupForm.controls['numberOfSeats'].touched && !signupForm.controls['numberOfSeats'].valid">No zero and negative value</div>
+          <br>
+        </div>
+        <br>
+        <div *ngIf="loading" class="loader"></div><br>
+        <button type="submit" class="btn btn-primary col-md-6 custome-button" [disabled]="!signupForm.valid">
+          <i class="fa fa-check-circle"></i> Submit</button>
+         
+    </form>
+  </div>
+</div>

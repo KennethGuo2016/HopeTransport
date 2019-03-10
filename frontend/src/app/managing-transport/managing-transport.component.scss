@@ -1,0 +1,101 @@
+body { 
+    background:#eaecef;
+    min-height: 100vh;
+}
+
+input {
+    margin-right: 1em;
+}
+
+form {
+    margin-top: 2em;
+}
+
+.special-container{
+    background: white;
+    padding: 1em 0 0.5em 0;
+    margin-bottom: 0.5em;
+}
+
+#note-input {
+    margin-top: 1em;
+}
+
+#note-container {
+    background: white;
+    margin: 0.5em 0 0.5em 0;
+    padding: 1em 0 1em 0;
+}
+
+.remove_bullet{
+    list-style-type: none;
+    margin-bottom: 0rem;
+}
+
+#transport-plan {
+    padding: 1em 0 5vh 0;
+    background: white;
+}
+
+#plan-container {
+    margin-top: 1em;
+    border-radius: 5px;
+    border:2px solid #ccc;
+    min-height: 10em;
+}
+
+#plan-container > div{
+    padding-top: 2em;
+    padding-bottom: 1em;
+}
+
+#plan-title {
+    background: #eaecef;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 1em;
+    height: 2em;
+}
+
+#plan-title b {
+    margin-right: 2em;
+}
+
+#plan-title i:first-child {
+    margin-right: 0.5em;
+}
+
+.note-btn{
+    border-radius: 5px;
+}
+
+#manage {
+    display: flex;
+    width: 50%;
+    justify-content: flex-start;
+}
+
+#manage a.active {
+    border-bottom: 3px solid red;
+}
+
+nav a {
+    color: black;
+}
+
+.toggle-show-passengers {
+    margin-right: 0.5em;
+}
+
+.toggle-select-passengers {
+    margin-left: 1.5em;
+}
+
+.passenger {
+    margin-left: 1em;
+}
+
+.login-alert {
+    margin-top: 3em;
+}

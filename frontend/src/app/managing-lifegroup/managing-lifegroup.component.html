@@ -1,0 +1,23 @@
+<div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active">Managing Lifegroup</li>
+  </ol>
+
+</div>
+<br>
+
+<div class="background-display" align="center">
+  <p *ngIf="units.length == 0">There is no lifegroup stored in the database. Send this link to the lifegroups for them to register <a routerLink = "admin-signup">http://localhost:4200/admin-signup</a></p>
+  <div>
+    <table class="col-md-6" *ngFor="let unit of units">
+      <tr>
+        <th align="center">Lifegroup</th>
+        <th></th>
+      </tr>
+      <td>{{unit}}</td>
+      <td>
+        <button class="btn btn-danger col-md-4" (click)="delLifeGroup(unit)">Delete</button>
+      </td>
+    </table>
+  </div>
+</div>

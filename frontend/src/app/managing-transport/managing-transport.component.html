@@ -1,0 +1,133 @@
+<body>
+
+  <nav class="navbar navbar-light bg-light">
+    <div class="container">
+      <div id="manage">
+        <a class="nav-link" routerLink="/managing-people">People</a>
+        <a class="nav-link active" routerLink="/managing-transport">Transport</a>
+      </div>
+      <div>
+        <a class="nav-link" (click)="logout()" routerLink="/home">
+          <i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <section *ngIf="drivers.length == 0 && passengers.length != 0 || !loggedIn"class="container login-alert">
+    <p *ngIf="drivers.length == 0 && passengers.length != 0">No driver is selected</p>
+    <p *ngIf="!loggedIn">
+      Please <a id="login" routerLink="/home">login</a> first
+    </p>
+    <p *ngIf="drivers.length == 0 && passengers.length == 0 && loggedIn">Please
+      <a routerLink="/managing-people">select members</a> first</p>
+  </section>
+
+  <section *ngIf="loggedIn" id="note-container">
+    <div class="container">
+      <b>Notes:</b> <br>
+      <div *ngFor="let note of notes">
+        • {{note.text}}
+        <button *ngIf="editNotes" (click)="cancelNote(note)" class="btn btn-link note-btn">
+          <i class="fa fa-times-circle"></i>
+        </button>
+      </div>
+
+      <form>
+        <button class="note-btn" *ngIf="!editNotes && notes.length == 0" (click)="editNotes = true">Add Notes</button>
+        <button class="note-btn" *ngIf="!editNotes && notes.length > 0" (click)="editNotes = true">Edit</button>
+        <button class="note-btn" *ngIf="editNotes" (click)="editNotes = false">Done</button><br>
+        <div *ngIf="loading" class="loader"></div>
+        <input *ngIf="editNotes" class="txt col-md-4" placeholder="Add a new note" #note id="note-input">
+        <button *ngIf="editNotes" class="btn btn-primary btn-sm note-btn" (click)="addNote()">Add</button>
+      </form>
+    </div>
+
+  </section>
+
+  <section *ngIf="drivers.length != 0 && passengers.length != 0">
+    <div class="special-container" *ngFor="let driver of drivers">
+      <div class="container">
+        <p>
+          <i class="fas fa-car-side"></i>
+          <strong> {{driver.self.name}}</strong>
+          - {{driver.self.suburb.slice(0, driver.self.suburb.indexOf(','))}}
+        </p>
+        <div class="passenger">
+          <p (click)="toggleShowPassengers(driver)">
+            <i *ngIf="!driver.showPassengers" class="toggle-show-passengers fas fa-caret-right"></i>
+            <i *ngIf="driver.showPassengers" class="toggle-show-passengers fas fa-caret-down"></i>
+            <a *ngIf="driver.passengers.length == 0 || driver.passengers.length == 1">
+              capacity {{driver.self.seats}} - {{driver.passengers.length}} passenger chosen
+            </a>
+            <a *ngIf="driver.passengers.length > 1 && driver.passengers.length != driver.self.seats">
+              capacity {{driver.self.seats}} - {{driver.passengers.length}} passengers chosen
+            </a>
+            <a *ngIf="driver.passengers.length == driver.self.seats">Full - {{driver.self.seats}} passengers</a>
+          </p>
+          <div *ngIf="driver.showPassengers">
+            <ul *ngFor="let passenger of driver.passengers">
+              <li>
+                <div>{{passenger.name}} ({{passenger.suburb.slice(0, passenger.suburb.indexOf(','))}})
+                  <button (click)="cancelAlloc(driver, passenger)" class="btn btn-link">
+                    <i class="fa fa-times-circle"></i>
+                  </button>
+                </div>
+              </li>
+            </ul>
+            <div *ngIf="driver.self.seats > driver.passengers.length && driver.futurePassengers.length != 0">
+              <p (click)="toggleSelectPassengers(driver)">
+                <i *ngIf="!driver.selectPassengers" class="toggle-select-passengers fas fa-caret-right"></i>
+                <i *ngIf="driver.selectPassengers" class="toggle-select-passengers fas fa-caret-down"></i>
+                Select passenger(s)
+              </p>
+              <div *ngIf="driver.selectPassengers">
+                <ul class="remove_bullet" *ngFor="let passenger of driver.futurePassengers">
+                  <button class="btn btn-link" (click)="animatePassenger(driver, passenger)">
+                    <li> + {{passenger.name}} ({{passenger.suburb.slice(0, passenger.suburb.indexOf(','))}})</li>
+                  </button>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="transport-plan" *ngIf="loggedIn">
+    <div class="container">
+      <button class="note-btn" (click)="generatePlan()">Generate Transport Plan</button>
+      <div id="plan-container">
+        <span id="plan-title">
+          <i class="fas fa-car"></i>
+          <b>Transport Plan</b>
+          <div>
+            <a (click)="copy()">
+              <i class="far fa-copy"></i>
+            </a>
+            <span *ngIf="copied">Copied</span>
+          </div>
+        </span>
+        <div *ngIf="clickedDisplay && !displayPlan" class="container">You haven't allocated any passenger</div>
+        <div *ngIf="displayPlan" class="container">
+          <div *ngFor="let driver of drivers">
+            <strong>{{driver.self.name}}</strong>
+            <br>
+            <div *ngFor="let passenger of driver.passengers">
+              • {{passenger.name}}
+              <br>
+            </div>
+            <br>
+          </div>
+          <div *ngIf="unselected.length > 0">
+            <strong>Not Allocated</strong>
+            <div *ngFor="let passenger of unselected">
+              • {{passenger.name}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>

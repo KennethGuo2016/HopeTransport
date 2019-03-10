@@ -1,0 +1,30 @@
+<div id="outer-container">
+  <span routerLink="/managing-people">
+    <i class="fas fa-arrow-left"></i> Back
+  </span>
+  <div class="container">
+  <h3>Did I miss any one?</h3>
+  <br>
+  <b>Drivers({{drivers.length}}):</b>
+  <br>
+  <p *ngIf="drivers.length==0">You haven't selected any driver</p>
+  <div class="content" *ngFor="let driver of drivers">
+    {{driver.self.name}}
+    <button class="btn btn-link" (click)="delDriver(driver)">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <b>Passengers({{passengers.length}}): </b>
+  <br>
+  <p *ngIf="passengers.length==0">You haven't selected any passenger</p>
+  <div class="content" *ngFor="let passenger of passengers">
+    {{passenger.name}}
+    <button class="btn btn-link" (click)="delPassenger(passenger)">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <br>
+  <p *ngIf="totalSeats < passengers.length">
+    <b>*NOTE*:</b> there are not enough seats</p>
+</div>
+</div>
